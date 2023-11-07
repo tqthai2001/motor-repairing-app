@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { CssBaseline, StyledEngineProvider, ThemeProvider } from "@mui/material";
+import React from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./assets/scss/style.scss";
+import AppRouter from "./routers/AppRouter";
+import themes from "./themes";
 
-function App() {
+const App = () => {
+  const sidebar = useSelector((state) => state.sidebar);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={themes(sidebar)}>
+          <CssBaseline>
+            <AppRouter />
+            <ToastContainer
+              position="top-right"
+              autoClose={2500}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </CssBaseline>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
